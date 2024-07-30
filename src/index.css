@@ -1,0 +1,206 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: white;
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+
+  /* we set position relative here so we can set the footer to fix. 
+  This means that the root of all our react code is going to be at position relative */
+  position: relative;
+}
+
+.background-image {
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  width: 100%;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: space-between;
+}
+
+.bg-gradient-class {
+  /* position absolute fixes the position relative to the parent container */
+  position: absolute;
+  inset: 0;
+  /* This inset is only for positioned elements and is a shorthand for top, left, right, bottom in positional elements. This sets all those to 0 */
+  z-index: -1;
+  /* z-index of -1 means it's sitting behind everything, this is a gradient going from the first color to the second to the top. It's a good way for overlays and design */
+  background: linear-gradient(to top, #030615, rgba(255, 255, 255, 0));
+}
+
+.sidebar {
+  position: fixed;
+  inset: 0;
+  /* inset 0 means it takes the whole page screen */
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  z-index: 10;
+  /* we set z-index of 10 so that the sidebar sits higher than the footer */
+}
+
+.bg-overlay {
+  /* Since the sidebar is the parent component and it is fixed to the top, we can set absolute position on this overlay and fix it relative to the sidebar */
+  position: absolute;
+  inset: 0;
+  /* inset again controls top, right, bottom, left */
+  background-color: #030615;
+  opacity: 0.6;
+  /* this will overlay the whole page */
+}
+
+.sidebar-contents {
+  z-index: 15;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  gap: 1rem;
+  padding: 1rem;
+  height: 100%;
+  width: 80%;
+  /* this lets us scroll if there is any overflow on the vertical axis, hides the scroll too */
+  max-width: 800px;
+  margin-left: auto;
+  background: #030615;
+}
+
+.sidebar-contents h2 {
+  font-weight: 200;
+  font-size: 1.4rem;
+}
+
+.sidebar-contents div {
+  /* in a two column or three column grid where you want one part to be responsively grow and shrink and the rest fine, use flex: 1 */
+  flex: 1;
+}
+
+.description-explanation {
+  font-weight: 200;
+  font-size: 0.9rem;
+}
+
+.sidebar-contents button {
+  background: transparent;
+  color: white;
+  border: none;
+  outline: none;
+  margin-right: auto;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 1em;
+  cursor: pointer;
+  transition-duration: 200ms;
+}
+
+.btn:hover {
+  opacity: 0.7;
+}
+
+footer h2 {
+  font-size: 1.2rem;
+}
+
+footer h1 {
+  font-size: 0.9rem;
+  font-weight: 200;
+}
+
+footer div {
+  display: flex;
+  flex-direction: column;
+}
+
+.description-title {
+  font-size: 1.1rem;
+  font-weight: 200;
+}
+
+.description-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.loadingState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+/* This is how you can set up a basic css animation for spinning and infinite spin, define spin in @keyframes, put the from and to as so */
+.loadingState i {
+  opacity: 0.2;
+  font-size: 3rem;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 640px) {
+  .sidebar {
+    position: relative;
+    inset: unset;
+    min-width: 30%;
+    box-shadow: 0 0 40px 1px #030615;
+    /* Gives a box shadow on the sidebar, 0px for x and y axis, 40px for blur radius which gives a blur effect on the box edges, and 1px specifies how much blur  */
+  }
+
+  .sidebar-contents {
+    margin: unset;
+    width: 100%;
+  }
+
+  .bg-overlay {
+    opacity: 1;
+  }
+}
